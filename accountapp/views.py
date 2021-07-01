@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+
 # Create your views here.
 
 def hello_world(request):
-    return HttpResponse('Hello World ver2!')
+    return render(request, 'base.html')
