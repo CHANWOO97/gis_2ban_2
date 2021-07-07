@@ -4,9 +4,9 @@
 }
 
 .RoseWoo_header_button{
-     margin-bottom: 2rem
-}
-
+     margin-bottom: 2rem  /* px 고정되 있는 값*/
+}                         /* em 상위 레이아웃 <상속받고 누적시킴> 폰트 크기의 변화의 따라 값이 변화*/
+                         /* rem rootHTML 폰트사이즈에 영향만 받음*/
 .RoseWoo_footer_logo{
      margin: 1.5rem 0;
      font-family: 'Cinzel', serif;
