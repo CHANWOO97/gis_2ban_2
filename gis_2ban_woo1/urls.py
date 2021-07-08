@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts_2/', include('accountapp.urls')) # 라우팅
+    path('accounts/', include('accountapp.urls')) # 라우팅
 ]

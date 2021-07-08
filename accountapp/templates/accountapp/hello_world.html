@@ -2,29 +2,15 @@
 
 {% block content %}
 
-    <style>
-        .testing {
-            background-color: yellow;/* px 고정되 있는 값*/
-                                     /* em 상위 레이아웃 <상속받고 누적시킴> 폰트 크기의 변화의 따라 값이 변화*/
-                                     /* rem rootHTML 폰트사이즈에 영향만 받음*/
-            height: 48px;
-            width: 48px;
-            margin: 1rem;
-            border-radius: .5rem;
-            display: inline-block;
-        }
-    </style>
-                        {# overflow : hidden 범위 벗어나면 사라지게 #}
-    <div style = "height: 20rem; background-color: aquamarine;
-                margin: 2rem; border-radius:  1rem; font-size: 2rem">
-     <h1>TEST_2</h1>
+    <div style="margin: 2rem; text-align: center">
+        <h1>METHOD</h1>
 
+        <form action="/accounts/hello_world/" method="post">
+            {% csrf_token %}   {# 웹 취약점 장고에서 포스트요청 정상적으로 받을 수 있게함 #}
+            <input type="submit"; class="btn btn-outline-warning rounded-pill px-5">
+        </form>
 
-    <div class="testing" style="height: 48px; width: 48px"></div>
-    <div class="testing" style="height: 3rem; width: 3rem"></div>
-    <div class="testing" style="height: 3em; width: 3em"></div>
-    <div class="testing" style="height: 30%; width: 30% "></div>
-
+        <h3>{{ text }}</h3>
     </div>
 
 {% endblock %}
