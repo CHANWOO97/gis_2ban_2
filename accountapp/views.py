@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView ## 중요!
+from django.views.generic import CreateView, DetailView  ## 중요!
 
 from accountapp.models import HelloWorld
 
@@ -31,3 +31,9 @@ class AccountCreateView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('accountapp:hello_world') # 지금 당장이 아니라 나중에 값을 돌려주려고 lazy~
     template_name = 'accountapp/create.html'
+
+
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user'
+    template_name = 'accountapp/detail.html'
