@@ -13,7 +13,7 @@ from accountapp.models import HelloWorld
 
 def hello_world(request):
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated: # 유저가 로그인 되있을 경우
         if request.method == "POST":
 
             temp = request.POST.get('input')
@@ -29,6 +29,7 @@ def hello_world(request):
                           context={'data_list': data_list})
 
     else:
+        # 로그인 되지 않은 경우
         return HttpResponseRedirect(reverse('accountapp:login'))  #function에서는 reverse
 
 
