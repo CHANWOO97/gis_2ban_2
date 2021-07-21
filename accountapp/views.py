@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -5,12 +6,14 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView  ## 중요!
 
 from accountapp.forms import AccountCreationForm
 from accountapp.models import HelloWorld
 
 
+@login_required
 def hello_world(request):
 
     if request.user.is_authenticated: # 유저가 로그인 되있을 경우
@@ -46,7 +49,8 @@ class AccountDetailView(DetailView):
     template_name = 'accountapp/detail.html'
 
 
-
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
@@ -54,38 +58,11 @@ class AccountUpdateView(UpdateView):
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
 
-    def get(self, request, *args, **kwargs):
-        # get 방식 over 라이딩?
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args, **kwargs) # 이거??
-        else:
-            return HttpResponseForbidden()
-                            # 장고에서 지원하는 경고메시지
 
-    def post(self, request, *args, **kwargs):
-        # post 방식 over 라이딩?
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args, **kwargs) # 이거??
-        else:
-            return HttpResponseForbidden()
-
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
-
-    def get(self, request, *args, **kwargs):
-        # get 방식 over 라이딩?
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args, **kwargs) # 이거??
-        else:
-            return HttpResponseForbidden()
-                            # 장고에서 지원하는 경고메시지
-
-    def post(self, request, *args, **kwargs):
-        # post 방식 over 라이딩?
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args, **kwargs) # 이거??
-        else:
-            return HttpResponseForbidden()
