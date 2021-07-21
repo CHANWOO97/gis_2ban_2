@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
@@ -55,18 +55,18 @@ class AccountUpdateView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         # get 방식 over 라이딩?
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().get(request, *args, **kwargs) # 이거??
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
-
+            return HttpResponseForbidden()
+                            # 장고에서 지원하는 경고메시지
 
     def post(self, request, *args, **kwargs):
         # post 방식 over 라이딩?
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(request, *args, **kwargs) # 이거??
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
 
 class AccountDeleteView(DeleteView):
     model = User
@@ -76,14 +76,15 @@ class AccountDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         # get 방식 over 라이딩?
-        if request.user.is_authenticated:
-            return super().get(request, *args, **kwargs)  # 이거??
+        if request.user.is_authenticated and self.get_object() == request.user:
+            return super().get(request, *args, **kwargs) # 이거??
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
+                            # 장고에서 지원하는 경고메시지
 
     def post(self, request, *args, **kwargs):
         # post 방식 over 라이딩?
-        if request.user.is_authenticated:
-            return super().post(request, *args, **kwargs)  # 이거??
+        if request.user.is_authenticated and self.get_object() == request.user:
+            return super().post(request, *args, **kwargs) # 이거??
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
