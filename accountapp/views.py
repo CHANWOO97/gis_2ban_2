@@ -12,19 +12,24 @@ from accountapp.models import HelloWorld
 
 
 def hello_world(request):
-    if request.method == "POST":
 
-        temp = request.POST.get('input')
-        new_data = HelloWorld()
-        new_data.text = temp
-        new_data.save()
+    if request.user.is_authenticated:
+        if request.method == "POST":
 
-        return HttpResponseRedirect(reverse('accountapp:hello_world'))
+            temp = request.POST.get('input')
+            new_data = HelloWorld()
+            new_data.text = temp
+            new_data.save()
+
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))
+
+        else:
+            data_list = HelloWorld.objects.all()
+            return render(request, 'accountapp/hello_world.html',
+                          context={'data_list': data_list})
 
     else:
-        data_list = HelloWorld.objects.all()
-        return render(request, 'accountapp/hello_world.html',
-                      context={'data_list': data_list})
+        return HttpResponseRedirect(reverse('accountapp:login'))  #function에서는 reverse
 
 
 class AccountCreateView(CreateView):
@@ -48,8 +53,37 @@ class AccountUpdateView(UpdateView):
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
 
+    def get(self, request, *args, **kwargs):
+        # get 방식 over 라이딩?
+        if request.user.is_authenticated:
+            return super().get(request, *args, **kwargs) # 이거??
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
+
+    def post(self, request, *args, **kwargs):
+        # post 방식 over 라이딩?
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs) # 이거??
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        # get 방식 over 라이딩?
+        if request.user.is_authenticated:
+            return super().get(request, *args, **kwargs)  # 이거??
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
+    def post(self, request, *args, **kwargs):
+        # post 방식 over 라이딩?
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs)  # 이거??
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
