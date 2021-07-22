@@ -9,11 +9,12 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView  ## 중요!
 
+from accountapp.decorator import account_ownership_required
 from accountapp.forms import AccountCreationForm
 from accountapp.models import HelloWorld
 
 
-@login_required
+@login_required # 장고에서 지원
 def hello_world(request):
 
     if request.user.is_authenticated: # 유저가 로그인 되있을 경우
@@ -27,7 +28,7 @@ def hello_world(request):
             return HttpResponseRedirect(reverse('accountapp:hello_world'))
 
         else:
-            data_list = HelloWorld.objects.all()
+            data_list = HelloWorld.objects.all() # DB에서 object 객체를 all 모두 긁어온다 이런식으로 데이터베이스 긁어온다
             return render(request, 'accountapp/hello_world.html',
                           context={'data_list': data_list})
 
@@ -48,9 +49,13 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
 
+# @method_decorator 리스트 기능 가지고 있당
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+has_ownership = [login_required, account_ownership_required]
+
+
+@method_decorator(has_ownership, 'get')  #
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
@@ -59,8 +64,8 @@ class AccountUpdateView(UpdateView):
     template_name = 'accountapp/update.html'
 
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
