@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accountapp.urls')), # 라우팅
     path('profiles/', include('profileapp.urls')),
+    path('articles/', include('articleapp.urls')),  # //127.0.0.1:8000/ articles/ create ~
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
