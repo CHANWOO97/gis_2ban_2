@@ -282,5 +282,13 @@ let magicGrid = new MagicGrid({
   useMin: true
 });
 
+var masonrys = document.getElementsByTagName("img")  // document 는 list.html 전체를 의미
+
+for (let i=0; masonrys.length; i++){
+  masonrys[i].addEventListener('load', function (){
+    magicGrid.positionItems(); // 수동으로 이미지를 재배치  ?어떤때? 각 이미지가 업로드 될 때마다
+  }, false)
+
+}
 magicGrid.listen();
 // module.exports = MagicGrid; 장고프레임워크에서 쓰는거
