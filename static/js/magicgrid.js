@@ -286,7 +286,7 @@ magicGrid.listen();
 
 var masonrys = document.getElementsByTagName("img")  // document 는 list.html 전체를 의미
 
-for (let i=0; masonrys.length; i++){
+for (let i=0; i < masonrys.length; i++){
   masonrys[i].addEventListener('load', function (){
     magicGrid.positionItems(); // 수동으로 이미지를 재배치  ?어떤때? 각 이미지가 업로드 될 때마다
   }, false)
