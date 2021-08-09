@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 from articleapp.models import Article
-
+# ORM모델은 쿼리문 없이 장고에서 데이터베이스와 소통하기 위한 것이다.
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.SET_NULL,
