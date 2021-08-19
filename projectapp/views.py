@@ -31,8 +31,9 @@ class ProjectDetailView(DetailView, MultipleObjectMixin): # listview를 같이 �
     paginate_by = 20
 
     def get_context_data(self, **kwargs): # 무슨 역할?
-        article_list = Article.objects.filter()
-        return super().get_context_data(**kwargs)
+        article_list = Article.objects.filter(project=self.object)
+        return super().get_context_data(object_list=article_list,
+                                        **kwargs)
 
 class ProjectListView(ListView):
     model = Project
