@@ -18,3 +18,5 @@ class Article(models.Model):
 
     created_at = models.DateField(auto_now_add=True, null=True)  # create 일정을 불러온다
     # 값을 따로 설정하지 않아도 DB 자체에서 설정을 한다 "auto_now_add" 인자 사용
+
+    like = models.IntegerField(default=0)
