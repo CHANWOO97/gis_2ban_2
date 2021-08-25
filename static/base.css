@@ -72,3 +72,14 @@
           font-size: 13px;
      }
 }
+
+/* a 태그에 css를 바꼬줄꼬에용 */
+
+a {
+     text-decoration: none;
+     color: black;
+}
+
+a:hover{
+     color:black;
+}
