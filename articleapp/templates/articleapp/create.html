@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block content %}
 
 <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="{% static 'beagle.css' %}">
 {# 왜 head.html에 코드를 작성한 것이 아닐까? #}
 {# 게시글 작성할 때만 사용할 건데 이것을 head.html 에 작성하면 매번 사이트 접속마다 가져오는 불필요성 #}
 
