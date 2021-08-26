@@ -31,7 +31,7 @@
                  alt="">
 
             <div class="article_content my-5">
-                {{ target_article.content }}
+                {{ target_article.content | safe}} {# 그대로 문자를 받아오는 코드를 html 태그를 적용시키는 filter= | safe #}
             </div>
             {% if target_article.writer == user %}
             <div>
