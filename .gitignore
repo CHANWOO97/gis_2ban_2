@@ -84,3 +84,9 @@ __pycache__/
 media/
 
 staticfiles/
+
+gis_2ban_woo.pem
+
+gis_woo_gcp
+
+gis_woo_gcp.pub
