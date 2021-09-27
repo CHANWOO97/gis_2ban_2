@@ -17,8 +17,8 @@ from django.urls import reverse_lazy
 
 # 최상위 프로젝트를 지정하는 경로
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-
+# 현재 경로는 gis_2ban_woo1 -> gis_2ban_woo1 -> settings -> base.py
+# parent. parent. parent  위 위 위 경로
 
 # Application definition
 

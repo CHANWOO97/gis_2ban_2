@@ -1,0 +1,55 @@
+
+version: "3.7"
+services:
+
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - gis-woo-network
+    volumes:
+      - gis-woo-media:/data/media/
+      - gis-woo-static:/data/static/
+      - /home/rkaehd127/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+  django:
+    image: gis-woo-django:4
+    networks:
+      - gis-woo-network
+    volumes:
+      - gis-woo-media:/home/gis_2ban_2/media/
+      - gis-woo-static:/home/gis_2ban_2/staticfiles/
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - gis-woo-network
+    volumes:
+      - gis_mariadb:/var/lib/mysql
+    secrets:
+      - MARIADB_USER
+      - MARIADB_PASSWORD
+      - MARIADB_ROOT_PASSWORD
+    environment:
+      MARIADB_DATABASE: django
+      MARIADB_USER: django-woo
+      MARIADB_PASSWORD: mypassword1234
+      MARIADB_ROOT_PASSWORD: mypassword1234
+
+
+networks:
+  gis-woo-network:
+
+volumes:
+  gis-woo-media:
+  gis-woo-static:
+  gis_mariadb:
+
+secrets:
+  MARIADB_USER:
+    external: true
+  MARIADB_PASSWORD:
+    external: true
+  MARIADB_ROOT_PASSWORD:
+    external: true

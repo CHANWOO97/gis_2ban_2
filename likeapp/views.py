@@ -40,7 +40,7 @@ class LikeArticleView(RedirectView):
         try:
             db_transaction(user, article)
             # 종아요 O 메세지 출력
-            messages.add_message(request, messages.SUCCESS, '종아요가 반영되었습니다.')
+            messages.add_message(request, messages.SUCCESS, '좋아요가 반영되었습니다.')
         except:
             # 종아요 X 메세지 출력
             messages.add_message(request=request, level=messages.ERROR, message='좋아요는 한번만 가능합니다.')
