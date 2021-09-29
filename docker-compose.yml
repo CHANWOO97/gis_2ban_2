@@ -9,6 +9,7 @@ services:
     volumes:
       - gis-woo-media:/data/media/
       - gis-woo-static:/data/static/
+      - gis_log:/var/log/nginx/
       - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
@@ -49,6 +50,7 @@ volumes:
   gis-woo-media:
   gis-woo-static:
   gis_mariadb:
+  gis_log:
 
 secrets:
   MARIADB_USER:
